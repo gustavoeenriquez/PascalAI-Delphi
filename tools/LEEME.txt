@@ -1,0 +1,24 @@
+PascalAI para Delphi 13 (RAD Studio 13, compilador 37.0)
+Versión community: Community y Professional (bases SQLite). Versión enterprise: Enterprise y Architect
+(SQLite, PostgreSQL y MySQL/MariaDB).
+
+Win32\  y  Win64\   PascalAI.bpl / .dcp (ejecución), PascalAIDesign.bpl / .dcp (paleta) y dcu\ (las unidades)
+
+Instalar:
+1. Tools > Options > Language > Delphi > Library: agrega a "Library path" Win32\dcu (plataforma Windows 32-bit)
+   y Win64\dcu (Windows 64-bit).
+2. Tools > Options > IDE > Environment Variables: agrega a PATH la carpeta Win32 (IDE de 32 bits) o Win64
+   (IDE de 64 bits). Reinicia el IDE.
+3. Component > Install Packages > Add... > PascalAIDesign.bpl de esa carpeta. Aparece la página PascalAI.
+
+Ejemplos y documentación: https://github.com/gustavoeenriquez/PascalAI-Delphi
+Licencia: LICENCIA.txt (uso educativo y personal; otros usos, con permiso del autor).
+
+---
+
+PascalAI for Delphi 13 (RAD Studio 13, compiler 37.0)
+
+Install: add Win32\dcu and Win64\dcu to the Library path of each platform; add Win32 (32-bit IDE) or Win64
+(64-bit IDE) to the IDE's PATH and restart it; Component > Install Packages > Add... > PascalAIDesign.bpl.
+Examples and docs: https://github.com/gustavoeenriquez/PascalAI-Delphi
+License: LICENCIA.txt (educational and personal use; other uses need the author's permission).

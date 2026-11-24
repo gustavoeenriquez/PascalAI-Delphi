@@ -1,0 +1,50 @@
+PascalAI para Delphi — licencia de uso
+Copyright (c) 2026 Gustavo Enriquez. Todos los derechos reservados.
+
+Los paquetes compilados de PascalAI para Delphi (los archivos .bpl, .dcp y .dcu de las descargas) se pueden
+usar gratis con fines educativos y personales, también dentro de aplicaciones propias con esos fines.
+Para cualquier otro uso (por ejemplo, una aplicación comercial o para un cliente), hay que pedir permiso al
+autor.
+
+No se permite descompilar los paquetes ni distribuirlos por separado.
+
+Se entregan tal cual, sin garantías de ningún tipo.
+
+Los ejemplos y la documentación de este repositorio (carpetas ejemplos/ y docs/) tienen licencia MIT:
+se pueden copiar, cambiar y usar libremente, también en programas comerciales.
+
+---
+
+PascalAI for Delphi — license
+Copyright (c) 2026 Gustavo Enriquez. All rights reserved.
+
+The compiled PascalAI packages for Delphi (the .bpl, .dcp and .dcu files of the downloads) may be used free of
+charge for educational and personal purposes, also inside your own applications for those purposes.
+Any other use (for example, a commercial application or one for a client) requires the author's permission.
+
+Decompiling the packages or distributing them separately is not allowed.
+
+They are provided as is, without warranty of any kind.
+
+The examples and documentation in this repository (folders ejemplos/ and docs/) are MIT licensed: they may be
+copied, changed and used freely, also in commercial programs.
+
+---
+
+MIT License (ejemplos/ y docs/)
+
+Copyright (c) 2026 Gustavo Enriquez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of
+the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
