@@ -230,11 +230,49 @@ virtuales (una subclase los oculta, no los redefine).
 Engine.AddUnitSource('Reglas', ReglasPas);   // código Pascal guardado en BD, configuración, etc.
 ```
 
+### 4.5 Bases de datos y `pai.package`
+
+Un programa usa `Database('ventas')` con las bases que declara `[databases]` de `pai.package`. Un host
+las declara sin archivo, con la misma sintaxis, o toma un `pai.package` como lo hace `pai run` (desde un host no se
+lee solo):
+
+```pascal
+Engine.BaseDir := 'C:\MiApp\datos';                      // las rutas relativas (vacía: la carpeta del .exe)
+Engine.AddDatabase('ventas', 'sqlite; path=ventas.db');   // = ventas = sqlite; path=ventas.db de [databases]
+Engine.AddDatabase('erp', 'postgres; url=postgres://app@db:5432/erp; password=secret:ERP_PG');
+Engine.RemoveDatabase('erp');
+Engine.LoadPackageConfig('C:\MiApp\pai.package');        // o una carpeta: busca pai.package en ella y hacia arriba
+```
+
+- `AddDatabase(Nombre, Spec, BaseDir = '')`: la línea se revisa al declararla: un motor desconocido (o, con
+  `PAI_SQL_LOCAL`, la variante Community, `postgres`/`mysql`) da `EPaiError` con `EConfigError`. La conexión se abre en el primer
+  uso, como en `pai`. Reemplaza otra base del mismo nombre.
+- `LoadPackageConfig(Ruta)`: las secciones que toma `pai run` (`[databases]` y `[databases.<PAI_ENV>]`,
+  `[providers]`, `[models]`, `[prices]`, `[stores]`, `[mcp]`, `[durable]`, `[timeouts]`, `[telemetry]`); las rutas
+  relativas, contra la carpeta del archivo. `EPaiError` si no hay `pai.package`.
+- En el componente, `Databases: TStrings` (una línea `nombre = spec` por base) y `BaseDir` son publicadas: se
+  aplican al cargar el formulario y al cambiarlas (las de antes de la lista se olvidan); en diseño no se abre nada.
+- Las bases son del proceso, como las de `pai`: las ven todos los motores. Al liberar un `TPaiEngine` se olvidan las
+  que declaró él.
+- **El proyecto.** `LoadPackageConfig` también fija la carpeta del proyecto del proceso: lo que `pai run`
+  busca desde la carpeta del programa se busca ahí, y no desde la carpeta actual, aunque el programa venga de
+  `Engine.Compile` sin archivo. Son `[skills]` (`tools skill('x')`), `[prompts]` (`TPrompt.Load`), `[config]`,
+  `[auto]` (`tools auto`: busca, instala en `pai_packages/` y escribe `pai.lock` y `pai.package` de esa carpeta) y
+  los paquetes instalados. La carpeta es una sola para todo el proceso: el último `LoadPackageConfig` manda. Sin él,
+  todo eso se busca desde la carpeta actual, como antes.
+- **Servidores MCP escritos en PascalAI.** Un `entrypoint` `.pas` (de `[mcp]` o de un paquete que instaló
+  `tools auto`) y `$PAI` en un comando se corren con `pai`, que por defecto se busca junto al ejecutable de la
+  aplicación. `TPaiEngine.PaiExe` (propiedad de clase, del proceso) da otra ruta. Los MCP con un ejecutable propio
+  y las skills no lo necesitan.
+- **Quién aprueba.** Con `aprobar = instalar, ejecutar` en `[auto]`, `tools auto` pregunta antes de instalar o de usar
+  un paquete. En una aplicación contesta `PaiHumanHandler` (unidad `PascalAI.AI.Human`): una función que recibe la
+  pregunta y devuelve `'sí'` o `'no'` (en la consola, o un diálogo en VCL/FMX). Ejemplo: `ejemplos/04-skills-auto`.
+
 ## 5. Componente en el IDE
 
 `TPaiEngine` se instala en la paleta (paquete de diseño `PascalAIDesign`, sin dependencias en el
 núcleo) con propiedades publicadas: `Profile`, `Limits`, `SearchPaths`, `Units` (colección de
-unidades nativas activas) y los eventos de §3. Un componente opcional `TPaiScript` (fuente +
+unidades nativas activas), `Databases` y `BaseDir` (§4.5) y los eventos de §3. Un componente opcional `TPaiScript` (fuente +
 motor + evento `OnDone`) cubre el caso de "un script en un formulario".
 
 Como el inspector de objetos solo asigna métodos, los eventos publicados son `OnScriptOutput`,
@@ -242,7 +280,8 @@ Como el inspector de objetos solo asigna métodos, los eventos publicados son `O
 desde código también se pueden usar `OnOutput`, `OnError`, `OnEmit` y `OnLog` con métodos
 anónimos. `Units` lista nombres de unidades registradas con `PaiRegisterUnitClass`. Paquetes en
 `packages/` (`PascalAI.dpk` de ejecución, `PascalAIDesign.dpk` de diseño) para el IDE de 32 y
-de 64 bits (`packages/build.sh`).
+de 64 bits. Delphi Community y Professional no traen los drivers de FireDAC para PostgreSQL y MySQL: la
+variante Community de los paquetes queda solo con SQLite, y una base `postgres` o `mysql` da `EConfigError` al abrirse.
 
 ## 6. API de procesos
 

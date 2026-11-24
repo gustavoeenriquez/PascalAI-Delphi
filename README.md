@@ -59,6 +59,7 @@ con paquetes de ejecución (*Link with runtime packages* con `PascalAI`).
 | [`ejemplos/01-consola`](ejemplos/01-consola/Consola.dpr) | Lo básico de la API: compilar, leer variables, llamar funciones del script, darle al script una función y un objeto de la aplicación, el sandbox y un modelo de IA (`mock`, sin red) |
 | [`ejemplos/02-reglas-vcl`](ejemplos/02-reglas-vcl) | Un formulario con `TPaiEngine` de la paleta: las reglas de descuento son un script que el usuario edita y prueba sin recompilar; los errores del script se muestran, no rompen la aplicación |
 | [`ejemplos/03-asistente`](ejemplos/03-asistente) | Un asistente de IA configurado con `pai.package` (`Motor.LoadPackageConfig`): proveedor, modelo y base de datos salen del archivo; el modelo consulta los pedidos con una herramienta del script. Viene con `mock`; quita el `;` de Ollama o Claude para usar uno de verdad |
+| [`ejemplos/04-skills-auto`](ejemplos/04-skills-auto) | Skills y herramientas automáticas: un modelo escribe con la guía de una skill del proyecto (`[skills]`) y otro, con `tools auto`, busca en el registry de PascalAI una calculadora, pide permiso a la persona (`PaiHumanHandler`), la instala en la carpeta del proyecto y la usa. Viene con `mock`; necesita internet. Al correrlo, `tools auto` agrega el paquete a `pai.package` y crea `pai.lock` y `pai_packages/` |
 
 Abre el `.dpr` en el IDE (crea el proyecto la primera vez). Desde la línea de comandos:
 
@@ -78,6 +79,7 @@ dcc64 -NSSystem;Winapi;Vcl -UC:\PascalAI-Delphi\Win64\dcu ejemplos\01-consola\Co
 | Limitar | `Motor.Profile := spPure` (sin disco ni red), `Motor.Limits.MaxTimeMs`, `MaxMemoryBytes`... |
 | Código que no es de confianza | `Motor.SandboxRun(Codigo)`: nunca lanza; `Ok`, `Output`, `ErrorMessage`, `Json` |
 | Configuración de `pai.package` | `Motor.LoadPackageConfig(Carpeta)`: `[providers]`, `[models]`, `[databases]`, `[mcp]`, `[stores]`... como en `pai run`. Es del proceso: la comparten todos los motores |
+| Skills y `tools auto` | `[skills]` y `[auto]` de `pai.package`: `LoadPackageConfig` fija la carpeta del proyecto, y ahí se leen las skills e instala `tools auto` (`pai_packages/`, `pai.lock`). Las preguntas de aprobación las contesta la aplicación con `PaiHumanHandler` (unidad `PascalAI.AI.Human`). Un servidor MCP escrito en PascalAI necesita `pai.exe` junto al ejecutable, o `TPaiEngine.PaiExe` |
 | Bases de datos | `Motor.AddDatabase('ventas', 'sqlite; path=ventas.db')` o la propiedad `Databases` en el Object Inspector (`BaseDir` para las rutas relativas), y en el script `Database('ventas')` |
 | Claves de los proveedores | Variables de entorno (`key=$ANTHROPIC_API_KEY` en `[providers]`) o `Secret('NOMBRE')`, que también busca en el Administrador de credenciales de Windows (`pai secret set`) |
 | Agentes y procesos | `Ctx.Spawn`, `Ctx.Process('nombre')`, canales y eventos del script hacia la aplicación |

@@ -50,6 +50,7 @@ Your application is **statically linked**: no BPL has to ship with it, unless yo
 | [`ejemplos/01-consola`](ejemplos/01-consola/Consola.dpr) | The API basics: compile, read variables, call script functions, give the script a function and an object of the application, the sandbox and an AI model (`mock`, no network) |
 | [`ejemplos/02-reglas-vcl`](ejemplos/02-reglas-vcl) | A form with `TPaiEngine` from the palette: the discount rules are a script the user edits and tries without recompiling; script errors are shown, they don't break the application |
 | [`ejemplos/03-asistente`](ejemplos/03-asistente) | An AI assistant configured with `pai.package` (`Engine.LoadPackageConfig`): provider, model and database come from the file; the model queries orders with a script tool. Ships with `mock`; uncomment Ollama or Claude to use a real one |
+| [`ejemplos/04-skills-auto`](ejemplos/04-skills-auto) | Skills and automatic tools: one model writes following a project skill (`[skills]`); another, with `tools auto`, searches the PascalAI registry for a calculator, asks the person for permission (`PaiHumanHandler`), installs it in the project folder and uses it. Ships with `mock`; needs internet. When run, `tools auto` adds the package to `pai.package` and creates `pai.lock` and `pai_packages/` |
 
 ## API essentials
 
@@ -63,6 +64,7 @@ Your application is **statically linked**: no BPL has to ship with it, unless yo
 | Limit | `Engine.Profile := spPure` (no disk or network), `Engine.Limits.MaxTimeMs`, `MaxMemoryBytes`... |
 | Untrusted code | `Engine.SandboxRun(Code)`: never raises; `Ok`, `Output`, `ErrorMessage`, `Json` |
 | `pai.package` settings | `Engine.LoadPackageConfig(Folder)`: `[providers]`, `[models]`, `[databases]`, `[mcp]`, `[stores]`... as with `pai run`. Process-wide: all engines share them |
+| Skills and `tools auto` | `[skills]` and `[auto]` in `pai.package`: `LoadPackageConfig` sets the project folder; skills are read from it and `tools auto` installs there (`pai_packages/`, `pai.lock`). The application answers approval questions with `PaiHumanHandler` (unit `PascalAI.AI.Human`). An MCP server written in PascalAI needs `pai.exe` next to the executable, or `TPaiEngine.PaiExe` |
 | Databases | `Engine.AddDatabase('sales', 'sqlite; path=sales.db')` or the `Databases` property in the Object Inspector (`BaseDir` for relative paths), and `Database('sales')` in the script |
 | Provider keys | Environment variables (`key=$ANTHROPIC_API_KEY` in `[providers]`) or `Secret('NAME')`, which also looks in the Windows Credential Manager (`pai secret set`) |
 | Agents and processes | `Ctx.Spawn`, `Ctx.Process('name')`, channels and events from the script to the application |
