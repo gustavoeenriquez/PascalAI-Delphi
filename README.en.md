@@ -49,6 +49,7 @@ Your application is **statically linked**: no BPL has to ship with it, unless yo
 |---|---|
 | [`ejemplos/01-consola`](ejemplos/01-consola/Consola.dpr) | The API basics: compile, read variables, call script functions, give the script a function and an object of the application, the sandbox and an AI model (`mock`, no network) |
 | [`ejemplos/02-reglas-vcl`](ejemplos/02-reglas-vcl) | A form with `TPaiEngine` from the palette: the discount rules are a script the user edits and tries without recompiling; script errors are shown, they don't break the application |
+| [`ejemplos/03-asistente`](ejemplos/03-asistente) | An AI assistant configured with `pai.package` (`Engine.LoadPackageConfig`): provider, model and database come from the file; the model queries orders with a script tool. Ships with `mock`; uncomment Ollama or Claude to use a real one |
 
 ## API essentials
 
@@ -61,7 +62,9 @@ Your application is **statically linked**: no BPL has to ship with it, unless yo
 | Give the script objects | `Engine.RegisterClass(TCustomer, ['Name', 'Pay'])` and `TPaiValue.FromObject(Obj, soBorrowed)` |
 | Limit | `Engine.Profile := spPure` (no disk or network), `Engine.Limits.MaxTimeMs`, `MaxMemoryBytes`... |
 | Untrusted code | `Engine.SandboxRun(Code)`: never raises; `Ok`, `Output`, `ErrorMessage`, `Json` |
-| Databases | `PaiSqlConfigure('sales', 'sqlite; path=sales.db', BaseDir)` (unit `PascalAI.Sql`) and `Database('sales')` in the script |
+| `pai.package` settings | `Engine.LoadPackageConfig(Folder)`: `[providers]`, `[models]`, `[databases]`, `[mcp]`, `[stores]`... as with `pai run`. Process-wide: all engines share them |
+| Databases | `Engine.AddDatabase('sales', 'sqlite; path=sales.db')` or the `Databases` property in the Object Inspector (`BaseDir` for relative paths), and `Database('sales')` in the script |
+| Provider keys | Environment variables (`key=$ANTHROPIC_API_KEY` in `[providers]`) or `Secret('NAME')`, which also looks in the Windows Credential Manager (`pai secret set`) |
 | Agents and processes | `Ctx.Spawn`, `Ctx.Process('name')`, channels and events from the script to the application |
 
 Full reference (Spanish): [docs/api-host.md](docs/api-host.md).

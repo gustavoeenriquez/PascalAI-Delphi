@@ -8,6 +8,7 @@
 //   4. Prestarle un objeto de la aplicación.
 //   5. Correr código que no es de confianza (por ejemplo, escrito por un modelo) en el sandbox.
 //   6. Un modelo de IA desde el script (mock/costo: responde sin red ni claves).
+//   7. Una base de datos SQLite que declara la aplicación.
 //
 // Compilar: en el IDE, Project > Options > Delphi Compiler > Search path = la carpeta dcu de
 // PascalAI para la plataforma (por ejemplo, C:\PascalAI-Delphi\Win64\dcu).
@@ -118,6 +119,18 @@ begin
         'model M primary ''mock/costo''; end;' + sLineBreak +
         'function Preguntar(const Texto: string): string; begin Result := M.Ask(Texto); end;', 'ia').NewContext;
       Writeln(Ctx.Call('Preguntar', ['hola']).AsString);
+
+      // 7. Una base de datos: la aplicación la declara y el script la abre por su nombre
+      Titulo('7. Una base de datos');
+      Engine.AddDatabase('ventas', 'sqlite; path=:memory:');
+      Ctx := Engine.Compile(
+        'var Db := Database(''ventas'');' + sLineBreak +
+        'Db.Exec(''create table pedido (producto text, cantidad integer)'');' + sLineBreak +
+        'Db.Exec(''insert into pedido values (:p, :c)'', P := ''molino'', C := 2);' + sLineBreak +
+        'Db.Exec(''insert into pedido values (:p, :c)'', P := ''cafetera'', C := 12);' + sLineBreak +
+        'WriteLn(''unidades vendidas: '', Db.Scalar<Integer>(''select sum(cantidad) from pedido''));', 'ventas').NewContext;
+      Ctx.Run;
+      Write(Ctx.OutputText);
       Ctx := nil;
     finally
       Prog := nil;

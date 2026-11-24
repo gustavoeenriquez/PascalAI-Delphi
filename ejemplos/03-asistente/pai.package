@@ -1,0 +1,14 @@
+; La configuración del asistente: la misma de un programa de pai (Engine.LoadPackageConfig la carga).
+; Las claves nunca van aquí: $NOMBRE se toma de la variable de entorno.
+
+[providers]
+; ollama = url=http://localhost:11434/v1
+; claude = url=https://api.anthropic.com/v1; key=$ANTHROPIC_API_KEY
+
+[models]
+; Cambia el modelo sin tocar el código (el del código es mock/costo). Quita el ';' de una de estas:
+; Asistente = ollama/gemma4:e4b
+; Asistente = claude/claude-haiku-5-5
+
+[databases]
+pedidos = sqlite; path=pedidos.db
