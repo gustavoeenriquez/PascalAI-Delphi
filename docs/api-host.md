@@ -267,6 +267,8 @@ Engine.LoadPackageConfig('C:\MiApp\pai.package');        // o una carpeta: busca
 - **Quién aprueba.** Con `aprobar = instalar, ejecutar` en `[auto]`, `tools auto` pregunta antes de instalar o de usar
   un paquete. En una aplicación contesta `PaiHumanHandler` (unidad `PascalAI.AI.Human`): una función que recibe la
   pregunta y devuelve `'sí'` o `'no'` (en la consola, o un diálogo en VCL/FMX). Ejemplo: `ejemplos/04-skills-auto`.
+- **Claves en español o en inglés.** `[auto]` acepta las dos formas: `permitir`/`allow`, `negar`/`deny`,
+  `autores`/`authors` y `aprobar`/`approve`, con los valores `instalar`/`install` y `ejecutar`/`run`.
 
 ## 5. Componente en el IDE
 

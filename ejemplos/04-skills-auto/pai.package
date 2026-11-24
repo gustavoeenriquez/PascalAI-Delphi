@@ -18,5 +18,6 @@ estilo = ia/estilo
 
 [auto]
 ; tools auto: qué puede buscar e instalar el modelo del registry, y qué se le pregunta a la persona
+; en inglés también vale: allow = mcp-calculator, skill-*   approve = install
 permitir = mcp-calculator, skill-*
 aprobar = instalar
