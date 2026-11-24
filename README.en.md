@@ -51,6 +51,7 @@ Your application is **statically linked**: no BPL has to ship with it, unless yo
 | [`ejemplos/02-reglas-vcl`](ejemplos/02-reglas-vcl) | A form with `TPaiEngine` from the palette: the discount rules are a script the user edits and tries without recompiling; script errors are shown, they don't break the application |
 | [`ejemplos/03-asistente`](ejemplos/03-asistente) | An AI assistant configured with `pai.package` (`Engine.LoadPackageConfig`): provider, model and database come from the file; the model queries orders with a script tool. Ships with `mock`; uncomment Ollama or Claude to use a real one |
 | [`ejemplos/04-skills-auto`](ejemplos/04-skills-auto) | Skills and automatic tools: one model writes following a project skill (`[skills]`); another, with `tools auto`, searches the PascalAI registry for a calculator, asks the person for permission (`PaiHumanHandler`), installs it in the project folder and uses it. Ships with `mock`; needs internet. When run, `tools auto` adds the package to `pai.package` and creates `pai.lock` and `pai_packages/` |
+| [`ejemplos/05-procesos`](ejemplos/05-procesos/Procesos.dpr) | Agents and processes with the application: the application as an agent (`RegisterHostAgent`, used by the script with `Process<T>`), a live script agent started and called from Delphi (`SpawnAgent`, `Call`), and a process with parallel children and its events (`Spawn`) |
 
 ## API essentials
 

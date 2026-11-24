@@ -60,6 +60,7 @@ con paquetes de ejecución (*Link with runtime packages* con `PascalAI`).
 | [`ejemplos/02-reglas-vcl`](ejemplos/02-reglas-vcl) | Un formulario con `TPaiEngine` de la paleta: las reglas de descuento son un script que el usuario edita y prueba sin recompilar; los errores del script se muestran, no rompen la aplicación |
 | [`ejemplos/03-asistente`](ejemplos/03-asistente) | Un asistente de IA configurado con `pai.package` (`Motor.LoadPackageConfig`): proveedor, modelo y base de datos salen del archivo; el modelo consulta los pedidos con una herramienta del script. Viene con `mock`; quita el `;` de Ollama o Claude para usar uno de verdad |
 | [`ejemplos/04-skills-auto`](ejemplos/04-skills-auto) | Skills y herramientas automáticas: un modelo escribe con la guía de una skill del proyecto (`[skills]`) y otro, con `tools auto`, busca en el registry de PascalAI una calculadora, pide permiso a la persona (`PaiHumanHandler`), la instala en la carpeta del proyecto y la usa. Viene con `mock`; necesita internet. Al correrlo, `tools auto` agrega el paquete a `pai.package` y crea `pai.lock` y `pai_packages/` |
+| [`ejemplos/05-procesos`](ejemplos/05-procesos/Procesos.dpr) | Agentes y procesos con la aplicación: la aplicación como agente (`RegisterHostAgent`, que el script usa con `Process<T>`), un agente vivo del script lanzado y llamado desde Delphi (`SpawnAgent`, `Call`), y un proceso con hijos en paralelo con sus eventos (`Spawn`) |
 
 Abre el `.dpr` en el IDE (crea el proyecto la primera vez). Desde la línea de comandos:
 
