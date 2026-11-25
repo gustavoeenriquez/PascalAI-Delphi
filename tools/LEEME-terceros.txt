@@ -1,0 +1,36 @@
+Bibliotecas de terceros incluidas / Third-party libraries included
+==================================================================
+
+PascalAI no usa FireDAC. Para hablar con PostgreSQL y con MySQL/MariaDB carga, al abrir la primera base,
+estas bibliotecas cliente. Van en Win32\dll y Win64\dll: cópialas junto al .exe de tu aplicación (con la
+carpeta plugin\), o deja su carpeta en el PATH. SQLite va dentro de PascalAI: no necesita nada.
+
+PascalAI does not use FireDAC. To talk to PostgreSQL and MySQL/MariaDB it loads these client libraries when
+the first database is opened. They are in Win32\dll and Win64\dll: copy them next to your application's .exe
+(with the plugin\ folder), or put their folder on the PATH. SQLite is built into PascalAI.
+
+Variables de entorno / Environment variables:
+  PAI_PG_LIB      otra libpq.dll / another libpq.dll
+  PAI_MYSQL_LIB   otra libmariadb.dll o libmysql.dll / another libmariadb.dll or libmysql.dll
+
+---------------------------------------------------------------------------------------------------------
+PostgreSQL: libpq 17.6 (solo Win64 / Win64 only)
+  libpq.dll, libssl-3-x64.dll, libcrypto-3-x64.dll, libintl-9.dll, libiconv-2.dll, libwinpthread-1.dll
+  Del instalador de PostgreSQL 17.6 para Windows x64 / From the PostgreSQL 17.6 Windows x64 installer.
+  Requiere / Requires: Microsoft Visual C++ Redistributable 2015-2022 (x64), que casi todo Windows ya trae /
+  already present on most Windows: https://aka.ms/vs/17/release/vc_redist.x64.exe
+  PostgreSQL no publica libpq de 32 bits desde la versión 11: en Win32, PascalAI ofrece SQLite y MySQL/MariaDB.
+  PostgreSQL has not published a 32-bit libpq since version 11: on Win32, PascalAI offers SQLite and MySQL/MariaDB.
+  Licencias / Licenses: licencias\PostgreSQL-LICENSE.txt (PostgreSQL License) y
+  licencias\PostgreSQL-terceros-OpenSSL-gettext-iconv-pthreads.txt (OpenSSL: Apache 2.0; gettext/libintl y
+  libiconv: LGPL; winpthreads: MIT/BSD).
+  Fuentes / Source: https://www.postgresql.org/ftp/source/v17.6/  ·  https://www.openssl.org/source/
+  ·  https://ftp.gnu.org/gnu/gettext/  ·  https://ftp.gnu.org/gnu/libiconv/  ·  https://sourceforge.net/projects/mingw-w64/
+
+MySQL / MariaDB: MariaDB Connector/C 3.4.11 (Win32 y Win64)
+  libmariadb.dll y plugin\*.dll (caching_sha2_password para MySQL 8, ed25519, gssapi, ...).
+  De los instaladores oficiales firmados por MariaDB USA, Inc. / From the official installers signed by
+  MariaDB USA, Inc.: mariadb-connector-c-3.4.11-win32.msi y -win64.msi.
+  Licencia / License: GNU LGPL 2.1 (licencias\MariaDB-Connector-C-LGPL-2.1.txt). Puedes reemplazar estas DLL
+  por otra versión compatible / You may replace these DLLs with another compatible build.
+  Fuente / Source: https://github.com/mariadb-corporation/mariadb-connector-c/tree/v3.4.11

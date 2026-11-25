@@ -1,8 +1,9 @@
 PascalAI para Delphi 13 (RAD Studio 13, compilador 37.0)
-Versión community: Community y Professional (bases SQLite). Versión enterprise: Enterprise y Architect
-(SQLite, PostgreSQL y MySQL/MariaDB).
+Un solo paquete para todas las ediciones (Community, Professional, Enterprise, Architect). Sin FireDAC.
+Bases desde los scripts: SQLite (incluido), PostgreSQL (Win64) y MySQL/MariaDB: ver LEEME-terceros.txt.
 
-Win32\  y  Win64\   PascalAI.bpl / .dcp (ejecución), PascalAIDesign.bpl / .dcp (paleta) y dcu\ (las unidades)
+Win32\  y  Win64\   PascalAI.bpl / .dcp (ejecución), PascalAIDesign.bpl / .dcp (paleta), dcu\ (las unidades)
+                    y dll\ (las bibliotecas de PostgreSQL y MySQL/MariaDB: cópialas junto al .exe de tu aplicación)
 
 Instalar:
 1. Tools > Options > Language > Delphi > Library: agrega a "Library path" Win32\dcu (plataforma Windows 32-bit)
@@ -17,6 +18,8 @@ Licencia: LICENCIA.txt (uso educativo y personal; otros usos, con permiso del au
 ---
 
 PascalAI for Delphi 13 (RAD Studio 13, compiler 37.0)
+One package for every edition (Community, Professional, Enterprise, Architect). No FireDAC.
+Databases from scripts: SQLite (built in), PostgreSQL (Win64) and MySQL/MariaDB: see LEEME-terceros.txt.
 
 Install: add Win32\dcu and Win64\dcu to the Library path of each platform; add Win32 (32-bit IDE) or Win64
 (64-bit IDE) to the IDE's PATH and restart it; Component > Install Packages > Add... > PascalAIDesign.bpl.

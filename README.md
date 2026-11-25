@@ -22,22 +22,20 @@ los ejemplos y la documentación. El código del motor no es público.
 
 - **Delphi 13** (RAD Studio 13, compilador 37.0). Las DCU de Delphi solo sirven para la versión con que se
   compilaron: con otra versión, el compilador dice que no encuentra o no puede usar las unidades.
-- Hay dos descargas, según tu edición de Delphi:
-
-  | Descarga | Para | Bases de datos desde los scripts |
-  |---|---|---|
-  | `...-delphi13-community.zip` | Community y Professional | SQLite |
-  | `...-delphi13-enterprise.zip` | Enterprise y Architect | SQLite, PostgreSQL y MySQL/MariaDB |
-
-  La diferencia son los drivers de FireDAC para PostgreSQL y MySQL, que solo trae Enterprise. Con la versión
-  Community, un script que abre una base postgres recibe un `EConfigError` que lo explica.
+- **Un solo paquete para todas las ediciones** (Community, Professional, Enterprise y Architect): PascalAI no usa
+  FireDAC. Solo requiere `rtl`, `dbrtl` e Indy, que traen todas las ediciones.
+- Bases de datos desde los scripts: **SQLite** va dentro de PascalAI. Para **PostgreSQL** (aplicaciones de 64 bits) y
+  **MySQL/MariaDB** (32 y 64 bits), el zip trae las bibliotecas cliente en `Win32\dll` y `Win64\dll`: cópialas
+  junto al `.exe` de tu aplicación, con la carpeta `plugin`. Sus versiones y licencias están en `LEEME-terceros.txt`.
+  PostgreSQL ya no publica `libpq` de 32 bits: en una aplicación de 32 bits, PostgreSQL necesita una `libpq` de
+  32 bits de otra fuente (`PAI_PG_LIB`), sin soporte oficial.
 - Windows: aplicaciones de **32 y 64 bits** (VCL, FMX o de consola).
 - Para usar modelos de IA desde los scripts, la clave del proveedor en una variable de entorno
   (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`...), o un Ollama local. Nunca en el código.
 
 ## Instalar
 
-1. Descarga el zip de tu edición de [Releases](https://github.com/gustavoeenriquez/PascalAI-Delphi/releases)
+1. Descarga el zip de [Releases](https://github.com/gustavoeenriquez/PascalAI-Delphi/releases)
    y descomprímelo, por ejemplo en `C:\PascalAI-Delphi`. Si quieres, compara su SHA-256 con `SHA256SUMS.txt`.
 2. **Ruta de las unidades.** En *Tools > Options > Language > Delphi > Library*, para cada plataforma, agrega a
    *Library path* su carpeta `dcu`:

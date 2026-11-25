@@ -244,8 +244,8 @@ Engine.RemoveDatabase('erp');
 Engine.LoadPackageConfig('C:\MiApp\pai.package');        // o una carpeta: busca pai.package en ella y hacia arriba
 ```
 
-- `AddDatabase(Nombre, Spec, BaseDir = '')`: la línea se revisa al declararla: un motor desconocido (o, con
-  `PAI_SQL_LOCAL`, la variante Community, `postgres`/`mysql`) da `EPaiError` con `EConfigError`. La conexión se abre en el primer
+- `AddDatabase(Nombre, Spec, BaseDir = '')`: la línea se revisa al declararla: un motor desconocido da `EPaiError`
+  con `EConfigError`. La conexión se abre en el primer
   uso, como en `pai`. Reemplaza otra base del mismo nombre.
 - `LoadPackageConfig(Ruta)`: las secciones que toma `pai run` (`[databases]` y `[databases.<PAI_ENV>]`,
   `[providers]`, `[models]`, `[prices]`, `[stores]`, `[mcp]`, `[durable]`, `[timeouts]`, `[telemetry]`); las rutas
@@ -282,8 +282,10 @@ Como el inspector de objetos solo asigna métodos, los eventos publicados son `O
 desde código también se pueden usar `OnOutput`, `OnError`, `OnEmit` y `OnLog` con métodos
 anónimos. `Units` lista nombres de unidades registradas con `PaiRegisterUnitClass`. Paquetes en
 `packages/` (`PascalAI.dpk` de ejecución, `PascalAIDesign.dpk` de diseño) para el IDE de 32 y
-de 64 bits. Delphi Community y Professional no traen los drivers de FireDAC para PostgreSQL y MySQL: la
-variante Community de los paquetes queda solo con SQLite, y una base `postgres` o `mysql` da `EConfigError` al abrirse.
+de 64 bits. PascalAI no usa FireDAC: el mismo paquete sirve en todas las ediciones de Delphi. SQLite va adentro;
+PostgreSQL y MySQL/MariaDB cargan su biblioteca cliente (`libpq.dll`, `libmariadb.dll` con su carpeta `plugin`) junto
+al `.exe` o desde el PATH; `PAI_PG_LIB` y `PAI_MYSQL_LIB` eligen otra. Si falta, la base da `ESqlConnection` con la
+pista.
 
 ## 6. API de procesos
 

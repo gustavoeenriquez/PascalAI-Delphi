@@ -15,9 +15,21 @@ for PLAT in win32 win64; do
   cp "$SRC/bin/$PKG/$PLAT"/PascalAI.bpl "$SRC/bin/$PKG/$PLAT"/PascalAI.dcp \
      "$SRC/bin/$PKG/$PLAT"/PascalAIDesign.bpl "$SRC/bin/$PKG/$PLAT"/PascalAIDesign.dcp "$D/"
   cp "$SRC/bin/$PKG/$PLAT"/dcu/*.dcu "$D/dcu/"
+  # los recursos que enlazan las unidades al compilar la app (sqlite3.dll va adentro de PascalAI, D-420)
+  cp "$SRC/src/platform/sqlite3-$PLAT.res" "$D/dcu/"
+  # las bibliotecas cliente de PostgreSQL y MySQL/MariaDB (dist/terceros, no versionadas; ver tools/LEEME-terceros.txt)
+  if [ -d "$R/dist/terceros/${PLAT^}" ]; then
+    mkdir -p "$D/dll"
+    cp -r "$R/dist/terceros/${PLAT^}"/. "$D/dll/"
+  fi
 done
 cp "$R/LICENCIA.txt" "$T/"
 cp "$R/tools/LEEME.txt" "$T/"
+if [ -d "$R/dist/terceros/licencias" ]; then
+  cp "$R/tools/LEEME-terceros.txt" "$T/"
+  mkdir -p "$T/licencias"
+  cp "$R/dist/terceros/licencias"/* "$T/licencias/"
+fi
 ( cd "$R/dist" && rm -f "$NOMBRE.zip" && python -c "import shutil, sys; shutil.make_archive(sys.argv[1], 'zip', '.', sys.argv[1])" "$NOMBRE" )
 ( cd "$R/dist" && touch SHA256SUMS.txt && grep -v " $NOMBRE.zip\$" SHA256SUMS.txt > s.tmp || true; \
   sha256sum "$NOMBRE.zip" >> s.tmp; mv s.tmp SHA256SUMS.txt; cat SHA256SUMS.txt )

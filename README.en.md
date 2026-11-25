@@ -22,16 +22,20 @@ are in Spanish; the identifiers are in English, like Delphi's.
 ## Requirements
 
 - **Delphi 13** (RAD Studio 13, compiler 37.0). Delphi DCUs only work with the version that built them.
-- Two downloads, by Delphi edition: `...-delphi13-community.zip` (Community and Professional; SQLite from
-  scripts) and `...-delphi13-enterprise.zip` (Enterprise and Architect; SQLite, PostgreSQL and MySQL/MariaDB).
-  The difference is FireDAC's PostgreSQL and MySQL drivers, which only Enterprise includes.
+- **One package for every edition** (Community, Professional, Enterprise and Architect): PascalAI does not use
+  FireDAC. It only requires `rtl`, `dbrtl` and Indy, which every edition includes.
+- Databases from scripts: **SQLite** is built in. For **PostgreSQL** (64-bit applications) and **MySQL/MariaDB**
+  (32 and 64 bits) the zip includes the client libraries in `Win32\dll` and `Win64\dll`: copy them next to your
+  application's `.exe`, with the `plugin` folder. Versions and licenses are in `LEEME-terceros.txt`. PostgreSQL no
+  longer publishes a 32-bit `libpq`: in a 32-bit application, PostgreSQL needs a 32-bit `libpq` from another source
+  (`PAI_PG_LIB`), not officially supported.
 - Windows: **32- and 64-bit** applications (VCL, FMX or console).
 - To use AI models from scripts, the provider key in an environment variable (`ANTHROPIC_API_KEY`,
   `OPENAI_API_KEY`...), or a local Ollama. Never in the code.
 
 ## Install
 
-1. Download the zip for your edition from [Releases](https://github.com/gustavoeenriquez/PascalAI-Delphi/releases)
+1. Download the zip from [Releases](https://github.com/gustavoeenriquez/PascalAI-Delphi/releases)
    and unzip it, for example to `C:\PascalAI-Delphi`. Optionally compare its SHA-256 with `SHA256SUMS.txt`.
 2. **Unit path.** In *Tools > Options > Language > Delphi > Library*, for each platform add its `dcu` folder to
    *Library path*: `C:\PascalAI-Delphi\Win32\dcu` (Windows 32-bit) and `C:\PascalAI-Delphi\Win64\dcu` (Windows 64-bit).
