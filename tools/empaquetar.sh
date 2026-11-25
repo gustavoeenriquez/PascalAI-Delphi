@@ -31,5 +31,5 @@ if [ -d "$R/dist/terceros/licencias" ]; then
   cp "$R/dist/terceros/licencias"/* "$T/licencias/"
 fi
 ( cd "$R/dist" && rm -f "$NOMBRE.zip" && python -c "import shutil, sys; shutil.make_archive(sys.argv[1], 'zip', '.', sys.argv[1])" "$NOMBRE" )
-( cd "$R/dist" && touch SHA256SUMS.txt && grep -v " $NOMBRE.zip\$" SHA256SUMS.txt > s.tmp || true; \
+( cd "$R/dist" && touch SHA256SUMS.txt && grep -v -E " \*?$NOMBRE.zip\$" SHA256SUMS.txt > s.tmp || true; \
   sha256sum "$NOMBRE.zip" >> s.tmp; mv s.tmp SHA256SUMS.txt; cat SHA256SUMS.txt )
